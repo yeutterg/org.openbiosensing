@@ -2,7 +2,7 @@ import org.scribe.builder.api.DefaultApi10a;
 import org.scribe.model.Token;
 
 /**
- * Scribe OAuth 1.0a call to Fitbit API
+ * Scribe Authorization URLS for Fitbit API
  */
 public class FitbitApi extends DefaultApi10a {
     public static final String BASE_URL = "http://api.fitbit.com/";
