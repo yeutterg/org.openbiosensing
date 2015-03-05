@@ -78,4 +78,66 @@ public class PropertyHandler {
         }
 
     }
+
+    /*
+     * Load specific user based on encoded Id
+     */
+    public static User loadUser(String encodedId) {
+        Properties userProps = new Properties();
+        try {
+            InputStream resourceStream = Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream(encodedId + ".properties");
+            userProps.load(resourceStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading user " + encodedId + " details.");
+            System.exit(-1);
+        }
+
+        User user = new User.UserBuilder()
+                .setEncodedId(userProps.getProperty("encodedId"))
+                .setFullName(userProps.getProperty("fullName"))
+                .setGender(userProps.getProperty("gender"))
+                .setCity(userProps.getProperty("city"))
+                .setState(userProps.getProperty("state"))
+                .setCountry(userProps.getProperty("country"))
+                .setTimeZone(userProps.getProperty("timeZone"))
+                .setBirthDate(userProps.getProperty("birthDate"))
+                .setHeightCm(userProps.getProperty("heightCm"))
+                .setWeightKg(userProps.getProperty("weightKg"))
+                .setStrideLengthRunningCm(userProps.getProperty("strideLengthRunningCm"))
+                .setStrideLengthWalkingCm(userProps.getProperty("strideLengthWalkingCm"))
+                .build();
+
+        return user;
+    }
+
+    /*
+     * Write user information to encodedId.properties file
+     */
+    public static void writeUser(User user) {
+        try {
+            Properties userProps = new Properties();
+            userProps.setProperty("encodedId", user.getEncodedId());
+            userProps.setProperty("fullName", user.getFullName());
+            userProps.setProperty("gender", user.getGender());
+            userProps.setProperty("city", user.getCity());
+            userProps.setProperty("state", user.getState());
+            userProps.setProperty("country", user.getCountry());
+            userProps.setProperty("timeZone", user.getTimeZone());
+            userProps.setProperty("birthDate", user.getBirthDate());
+            userProps.setProperty("heightCm", Integer.toString(user.getHeightCm()));
+            userProps.setProperty("weightKg", Double.toString(user.getWeightKg()));
+            userProps.setProperty("strideLengthRunningCm", Double.toString(user.getStrideLengthRunningCm()));
+            userProps.setProperty("strideLengthWalkingCm", Double.toString(user.getStrideLengthWalkingCm()));
+
+            File f = new File("src/main/resources/" + user.getEncodedId() + ".properties");
+            OutputStream resourceStream = new FileOutputStream(f);
+            userProps.store(resourceStream, "Updated: " + System.currentTimeMillis());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

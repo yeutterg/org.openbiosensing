@@ -151,7 +151,7 @@ public class User {
             return this;
         }
 
-        public UserBuilder setheightCm(String heightCm) {
+        public UserBuilder setHeightCm(String heightCm) {
             this.heightCm = Integer.parseInt(heightCm);
             return this;
         }
