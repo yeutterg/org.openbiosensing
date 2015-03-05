@@ -1,7 +1,11 @@
+import org.scribe.model.Verb;
+
 /**
  * Created by Greg on 3/4/2015.
  */
 public class Fitbit {
+
+    User user;
 
     public static void main(String[] args) {
         startup();
@@ -17,6 +21,8 @@ public class Fitbit {
             OAuth.authorize();
         } else {
             OAuth.reconnect(auth);
+            User testUser = Request.getProfile();
+            System.out.println(testUser.toString());
         }
 
     }

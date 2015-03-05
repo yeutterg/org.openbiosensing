@@ -11,9 +11,9 @@ public class User {
     private final String timeZone;
     private final String birthDate;
     private final int heightCm;
-    private final long weightKg;
-    private final long strideLengthRunningCm;
-    private final long strideLengthWalkingCm;
+    private final Double weightKg;
+    private final Double strideLengthRunningCm;
+    private final Double strideLengthWalkingCm;
 
 
     private User(UserBuilder builder) {
@@ -67,16 +67,34 @@ public class User {
         return heightCm;
     }
 
-    public long getWeightKg() {
+    public Double getWeightKg() {
         return weightKg;
     }
 
-    public long getStrideLengthRunningCm() {
+    public Double getStrideLengthRunningCm() {
         return strideLengthRunningCm;
     }
 
-    public long getStrideLengthWalkingCm() {
+    public Double getStrideLengthWalkingCm() {
         return strideLengthWalkingCm;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "encodedId='" + encodedId + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", country='" + country + '\'' +
+                ", timeZone='" + timeZone + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", heightCm=" + heightCm +
+                ", weightKg=" + weightKg +
+                ", strideLengthRunningCm=" + strideLengthRunningCm +
+                ", strideLengthWalkingCm=" + strideLengthWalkingCm +
+                '}';
     }
 
     public static class UserBuilder {
@@ -89,9 +107,9 @@ public class User {
         private String timeZone;
         private String birthDate;
         private int heightCm;
-        private long weightKg;
-        private long strideLengthRunningCm;
-        private long strideLengthWalkingCm;
+        private Double weightKg;
+        private Double strideLengthRunningCm;
+        private Double strideLengthWalkingCm;
 
         public UserBuilder setEncodedId(String encodedId) {
             this.encodedId = encodedId;
@@ -134,22 +152,22 @@ public class User {
         }
 
         public UserBuilder setheightCm(String heightCm) {
-            this.heightCm = Integer.getInteger(heightCm);
+            this.heightCm = Integer.parseInt(heightCm);
             return this;
         }
 
         public UserBuilder setWeightKg(String weightKg) {
-            this.weightKg = Long.getLong(weightKg);
+            this.weightKg = Double.parseDouble(weightKg);
             return this;
         }
 
         public UserBuilder setStrideLengthRunningCm(String strideLengthRunningCm) {
-            this.strideLengthRunningCm = Long.getLong(strideLengthRunningCm);
+            this.strideLengthRunningCm = Double.parseDouble(strideLengthRunningCm);
             return this;
         }
 
         public UserBuilder setStrideLengthWalkingCm(String strideLengthWalkingCm) {
-            this.strideLengthWalkingCm = Long.getLong(strideLengthWalkingCm);
+            this.strideLengthWalkingCm = Double.parseDouble(strideLengthWalkingCm);
             return this;
         }
 
