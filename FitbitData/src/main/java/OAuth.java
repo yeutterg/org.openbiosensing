@@ -1,74 +1,101 @@
 import org.scribe.builder.ServiceBuilder;
-import org.scribe.model.Token;
+import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * Authenticate a user to the Fitbit API
+ * Read calls are currently limited to 150 calls/hour
  */
-public class OAuth extends FitbitApi {
+public class OAuth {
 
     static String API_KEY;
     static String API_SECRET;
+    static OAuthService service;
+    static Token accessToken;
+    static Verifier verifier;
 
     /*
-     * Connect to the Fitbit API
+     * Authorize Fitbit API if not authorized previously
      */
-    public static void setupOAuth() {
+    public static void authorize() {
 
-        // Read in credentials
+        // Read in credentials and create the OAuthService object
+        setup();
+
+        // Get the request token
+        final Token requestToken = service.getRequestToken();
+
+        // Make the user validate the request token
+        System.out.println("Go to the following link and authorize the app:");
+        System.out.println(service.getAuthorizationUrl(requestToken));
+        System.out.println("Copy the PIN you are given and paste it here:");
+
+        // Wait to continue until user pastes in the access PIN
+        final String v = new Scanner(System.in).nextLine();
+
+        // Get the access token
+        verifier = new Verifier(v);
+        accessToken = service.getAccessToken(requestToken, verifier);
+
+        // Send a request for the user's profile info, and print it
+        String response = sendRequest(Verb.GET, "/1/user/-/profile.json");
+        System.out.println(response);
+
+        // Write authorization details to authorization.properties file
+        PropertyHandler.writeAuthorization(accessToken, v);
+    }
+
+    /*
+     * Reconnect to the API if previously verified
+     */
+    public static void reconnect(String[] auth) {
+        setup();
+        accessToken = new Token(auth[0], auth[1], auth[2]);
+        verifier = new Verifier(auth[3]);
+    }
+
+    /*
+     * Set up the API by loading the API credentials and OAuthService object
+     */
+    public static void setup() {
         readCredentials();
+        loadService();
+    }
 
-        // Create the OAuthService Object
-        OAuthService service = new ServiceBuilder()
+    /*
+     * Read in API credentials
+     */
+    public static void readCredentials() {
+        String[] api = PropertyHandler.loadApi();
+        API_KEY = api[0];
+        API_SECRET = api[1];
+    }
+
+    /*
+     * Load the OAuthService object
+     */
+    public static void loadService() {
+        service = new ServiceBuilder()
                 .provider(FitbitApi.class)
                 .apiKey(API_KEY)
                 .apiSecret(API_SECRET)
                 .build();
-
-        // Get the request token
-        Token requestToken = service.getRequestToken();
-
-        // Make the user validate the request token
-
-        // Get the access token
-
-        // Sign the request
-
-
     }
 
-
     /*
-     * Read credentials from /resources/FitbitCredentials.txt file
+     * Send a request and return the response
      */
-    private static void readCredentials() {
-        File file = new File("src/main/resources/FitbitCredentials.txt");
-        List<String> lines = new ArrayList<String>();
+    public static String sendRequest(Verb verb, String urlTail) {
+        // Create the request
+        OAuthRequest request = new OAuthRequest(verb, "https://api.fitbit.com" + urlTail);
 
-        // Read credentials from file
-        try {
-            Scanner sc = new Scanner(file);
+        // Sign the request
+        service.signRequest(accessToken, request);
 
-            while (sc.hasNextLine()) {
-                lines.add(sc.nextLine());
-            }
-
-            sc.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: FitbitCredentials.txt file not found.");
-            System.exit(-1);
-        }
-
-        // Assign credentials to variables
-        API_KEY = lines.get(0);
-        API_SECRET = lines.get(1);
-
-
+        // Send the request and return the response
+        Response response = request.send();
+        return response.getBody();
     }
 }
