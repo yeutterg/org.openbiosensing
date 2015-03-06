@@ -212,7 +212,6 @@ public class SleepBout {
                 ", sleepDurationMs=" + sleepDurationMs +
                 ", awakeDurationMs=" + awakeDurationMs +
                 ", restlessDurationMs=" + restlessDurationMs +
-                ", minuteData=" + minuteData +
                 '}';
     }
 }

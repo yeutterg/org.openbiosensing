@@ -1,5 +1,4 @@
 import org.scribe.model.Token;
-import org.scribe.model.Verifier;
 
 import java.io.*;
 import java.util.Properties;
