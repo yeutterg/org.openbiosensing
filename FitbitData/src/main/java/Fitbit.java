@@ -13,8 +13,8 @@ public class Fitbit {
         User currentUser = Request.getProfile();
         PropertyHandler.writeUser(currentUser);
 
-        // Get most recent sleep data for the user
-        TotalSleep24h lastNight = Request.getSleep(currentUser, DateTime.getCurrentDate());
+        // Get sleep data for the user from 1 day ago
+        TotalSleep24h lastNight = Request.getSleep(currentUser, DateTime.getDateInPast(1));
 
         // Output last night's data to a csv file
         FileIO.minuteDataToCSV(currentUser, lastNight);

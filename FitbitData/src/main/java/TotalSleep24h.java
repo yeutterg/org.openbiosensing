@@ -34,11 +34,10 @@ public class TotalSleep24h {
 
     @Override
     public String toString() {
-        return "TotalSleep24h{" +
-                "totalMinutesAsleep=" + totalMinutesAsleep +
-                ", totalMinutesInBed=" + totalMinutesInBed +
-                ", totalBouts=" + totalBouts +
-                ", sleepBouts=" + sleepBouts +
-                '}';
+        return "Sleep Record: \n" +
+                "Total Minutes Asleep," + totalMinutesAsleep + '\n' +
+                "Total Minutes In Bed," + totalMinutesInBed + '\n' +
+                "Total Sleep Bouts," + totalBouts + '\n' +
+                "Bout Details: \n" + sleepBouts.toString().replace("[", "").replace("]", "");
     }
 }

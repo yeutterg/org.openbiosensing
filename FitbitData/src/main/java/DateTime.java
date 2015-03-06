@@ -15,4 +15,16 @@ public class DateTime {
         String day = String.format("%02d", now.get(Calendar.DAY_OF_MONTH));
         return new String(year + "-" + month + "-" + day);
     }
+
+    /*
+     * Get date from n days ago
+     */
+    public static String getDateInPast(int daysPrior) {
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.DATE, -daysPrior);
+        int year = now.get(Calendar.YEAR);
+        String month = String.format("%02d", now.get(Calendar.MONTH));
+        String day = String.format("%02d", now.get(Calendar.DAY_OF_MONTH));
+        return new String(year + "-" + month + "-" + day);
+    }
 }

@@ -81,20 +81,19 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "encodedId='" + encodedId + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                ", timeZone='" + timeZone + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", heightCm=" + heightCm +
-                ", weightKg=" + weightKg +
-                ", strideLengthRunningCm=" + strideLengthRunningCm +
-                ", strideLengthWalkingCm=" + strideLengthWalkingCm +
-                '}';
+        return "User: \n" +
+                "Encoded ID," + encodedId + '\n' +
+                "Full Name," + fullName + '\n' +
+                "Gender," + gender + '\n' +
+                "City," + city + '\n' +
+                "State," + state + '\n' +
+                "Country," + country + '\n' +
+                "Time Zone," + timeZone + '\n' +
+                "Birth Date," + birthDate + '\n' +
+                "Height (cm)," + heightCm + '\n' +
+                "Weight (kg)," + weightKg + '\n' +
+                "Running Stride Length (cm)," + strideLengthRunningCm + '\n' +
+                "Walking Stride Length (cm)," + strideLengthWalkingCm;
     }
 
     public static class UserBuilder {

@@ -13,22 +13,25 @@ public class FileIO {
      */
     public static void minuteDataToCSV(User user, TotalSleep24h sleep) {
         String name = user.getFullName();
-        String date = sleep.getSleepBouts().get(0).getStartTime().substring(0, 10);
+        String date = sleep.getSleepBouts().get(0).getStartTime().substring(1, 11);
 
         // Prompt user for a file save location
 //        System.out.println("Input a location to save the file, and press enter");
 //        Scanner sc = new Scanner(System.in);
 //        String fileLocation = sc.nextLine();
 //        sc.close();
+        // TODO this is hard-coded for now but will be fixed in the GUI with a file/open dialog
         String fileLocation = "E:\\Downloads\\";
 
         // Generate CSV file with time-series data
         try {
             FileWriter w = new FileWriter(fileLocation + name + "_" + date + ".csv");
 
-//            // Header: user info, sleep info
-//            w.append(user.toString());
-//            w.append(sleep.toString());
+            // Header: user info, sleep info
+            w.append(user.toString());
+            w.append('\n');
+            w.append(sleep.toString());
+            w.append('\n');
 
             // Get number of sleep bouts
             int numBouts = sleep.getTotalBouts();
@@ -50,7 +53,7 @@ public class FileIO {
                 w.close();
             }
         } catch (IOException e) {
-            System.out.println("Error writing file.");
+            System.out.println("Error writing file: " + e);
             System.exit(-1);
         }
 

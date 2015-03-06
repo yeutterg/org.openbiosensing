@@ -197,21 +197,20 @@ public class SleepBout {
 
     @Override
     public String toString() {
-        return "SleepBout{" +
-                "logId=" + logId +
-                ", startTime='" + startTime + '\'' +
-                ", isMainSleep=" + isMainSleep +
-                ", efficiency=" + efficiency +
-                ", numAwakenings=" + numAwakenings +
-                ", numRestless=" + numRestless +
-                ", minutesToFallAsleep=" + minutesToFallAsleep +
-                ", minutesAsleep=" + minutesAsleep +
-                ", minutesAwake=" + minutesAwake +
-                ", minutesAfterWakeup=" + minutesAfterWakeup +
-                ", minutesInBed=" + minutesInBed +
-                ", sleepDurationMs=" + sleepDurationMs +
-                ", awakeDurationMs=" + awakeDurationMs +
-                ", restlessDurationMs=" + restlessDurationMs +
-                '}';
+        return "Bout: \n" +
+                "Log ID," + logId + '\n' +
+                "Start Time," + startTime + '\n' +
+                "Is Main Sleep," + isMainSleep + '\n' +
+                "Efficiency (%)," + efficiency + '\n' +
+                "Number of Awakenings," + numAwakenings + '\n' +
+                "Number of Times Restless," + numRestless + '\n' +
+                "Minutes To Fall Asleep," + minutesToFallAsleep + '\n' +
+                "Minutes Asleep," + minutesAsleep + '\n' +
+                "Minutes Awake," + minutesAwake + '\n' +
+                "Minutes After Wakeup," + minutesAfterWakeup + '\n' +
+                "Minutes In Bed," + minutesInBed + '\n' +
+                "Sleep Duration (ms)," + sleepDurationMs + '\n' +
+                "Awake Duration (ms)," + awakeDurationMs + '\n' +
+                "Restless Duration (ms)," + restlessDurationMs;
     }
 }
