@@ -98,7 +98,7 @@ public class SleepBout {
         return minuteData;
     }
 
-    private static class SleepBoutBuilder {
+    public static class SleepBoutBuilder {
         private int logId;
         private String startTime;
         private boolean isMainSleep;

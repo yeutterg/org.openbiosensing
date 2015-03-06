@@ -1,14 +1,23 @@
-import org.scribe.model.Verb;
-
 /**
- * Created by Greg on 3/4/2015.
+ * Main Fitbit class
  */
 public class Fitbit {
 
     User user;
 
     public static void main(String[] args) {
+        // Load the program and authenticate if necessary
         startup();
+
+        // Get the user's profile and write it to a file
+        User currentUser = Request.getProfile();
+        PropertyHandler.writeUser(currentUser);
+
+        // Get most recent sleep data for the user
+        TotalSleep24h lastNight = Request.getSleep(currentUser, DateTime.getCurrentDate());
+
+        // Output last night's data to a csv file
+
     }
 
     /*
@@ -21,9 +30,10 @@ public class Fitbit {
             OAuth.authorize();
         } else {
             OAuth.reconnect(auth);
-            User testUser = Request.getProfile();
-            System.out.println(testUser.toString());
         }
 
     }
+
+
+
 }
