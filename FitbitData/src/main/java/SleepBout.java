@@ -16,8 +16,8 @@ public class SleepBout {
     private final int minutesAfterWakeup;
     private final int minutesInBed;
     private final long sleepDurationMs;
-    private final long awakeDurationMs;
-    private final long restlessDurationMs;
+    private final long awakeDurationMins;
+    private final long restlessDurationMins;
     private final List<MinuteDataPt> minuteData;
 
     private SleepBout(SleepBoutBuilder builder) {
@@ -33,8 +33,8 @@ public class SleepBout {
         this.minutesAfterWakeup = builder.minutesAfterWakeup;
         this.minutesInBed = builder.minutesInBed;
         this.sleepDurationMs = builder.sleepDurationMs;
-        this.awakeDurationMs = builder.awakeDurationMs;
-        this.restlessDurationMs = builder.restlessDurationMs;
+        this.awakeDurationMins = builder.awakeDurationMins;
+        this.restlessDurationMins = builder.restlessDurationMins;
         this.minuteData = builder.minuteData;
     }
 
@@ -86,12 +86,20 @@ public class SleepBout {
         return minutesInBed;
     }
 
-    public long getAwakeDurationMs() {
-        return awakeDurationMs;
+    public long getAwakeDurationMins() {
+        return awakeDurationMins;
     }
 
-    public long getRestlessDurationMs() {
-        return restlessDurationMs;
+    public long getRestlessDurationMins() {
+        return restlessDurationMins;
+    }
+
+    public int getActiveAwakeMins() {
+        int count = 0;
+        for (int i = 0; i < minuteData.size(); i++) {
+            if (minuteData.get(i).getAmp() > 1) count++;
+        }
+        return count;
     }
 
     public List<MinuteDataPt> getMinuteData() {
@@ -111,8 +119,8 @@ public class SleepBout {
         private int minutesAfterWakeup;
         private int minutesInBed;
         private long sleepDurationMs;
-        private long awakeDurationMs;
-        private long restlessDurationMs;
+        private long awakeDurationMins;
+        private long restlessDurationMins;
         private List<MinuteDataPt> minuteData;
 
         public SleepBoutBuilder setLogId(String logId) {
@@ -175,13 +183,13 @@ public class SleepBout {
             return this;
         }
 
-        public SleepBoutBuilder setAwakeDurationMs(String awakeDurationMs) {
-            this.awakeDurationMs = Long.parseLong(awakeDurationMs, 10);
+        public SleepBoutBuilder setAwakeDurationMins(String awakeDurationMins) {
+            this.awakeDurationMins = Long.parseLong(awakeDurationMins, 10);
             return this;
         }
 
-        public SleepBoutBuilder setRestlessDurationMs(String restlessDurationMs) {
-            this.restlessDurationMs = Long.parseLong(restlessDurationMs, 10);
+        public SleepBoutBuilder setRestlessDurationMins(String restlessDurationMins) {
+            this.restlessDurationMins = Long.parseLong(restlessDurationMins, 10);
             return this;
         }
 
@@ -210,7 +218,8 @@ public class SleepBout {
                 "Minutes After Wakeup," + minutesAfterWakeup + '\n' +
                 "Minutes In Bed," + minutesInBed + '\n' +
                 "Sleep Duration (ms)," + sleepDurationMs + '\n' +
-                "Awake Duration (ms)," + awakeDurationMs + '\n' +
-                "Restless Duration (ms)," + restlessDurationMs;
+                "Awake Duration (min)," + awakeDurationMins + '\n' +
+                "Restless Duration (min)," + restlessDurationMins + '\n' +
+                "Awake/Active Duration (min)," + getActiveAwakeMins();
     }
 }

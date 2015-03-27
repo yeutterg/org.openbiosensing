@@ -106,7 +106,7 @@ public class Request {
 
             SleepBout bout = new SleepBout.SleepBoutBuilder()
                     .setNumAwakenings(jsonObject.getAsJsonPrimitive("awakeCount").toString())
-                    .setAwakeDurationMs(jsonObject.getAsJsonPrimitive("awakeDuration").toString())
+                    .setAwakeDurationMins(jsonObject.getAsJsonPrimitive("awakeDuration").toString())
                     .setSleepDurationMs(jsonObject.getAsJsonPrimitive("duration").toString())
                     .setEfficiency(jsonObject.getAsJsonPrimitive("efficiency").toString())
                     .setIsMainSleep(jsonObject.getAsJsonPrimitive("isMainSleep").toString())
@@ -116,7 +116,7 @@ public class Request {
                     .setMinutesAwake(jsonObject.getAsJsonPrimitive("minutesAwake").toString())
                     .setMinutesToFallAsleep(jsonObject.getAsJsonPrimitive("minutesToFallAsleep").toString())
                     .setNumRestless(jsonObject.getAsJsonPrimitive("restlessCount").toString())
-                    .setRestlessDurationMs(jsonObject.getAsJsonPrimitive("restlessDuration").toString())
+                    .setRestlessDurationMins(jsonObject.getAsJsonPrimitive("restlessDuration").toString())
                     .setStartTime(jsonObject.getAsJsonPrimitive("startTime").toString())
                     .setMinutesInBed(jsonObject.getAsJsonPrimitive("timeInBed").toString())
                     .setMinuteData(minuteData)
